@@ -10,6 +10,7 @@ A bot for feedback from the company or for managing proposal.
 Mission: to automate routine tasks as much as possible
 The user just needs to click on the buttons and at the end send their contact details
 The AIOGRAM library and an application for responses on behalf of the bot were involved: Graph Messenger
+
 ![image](https://user-images.githubusercontent.com/57330607/179411296-198dd413-2852-4516-8d55-a19bf6256aad.png)
 ![image](https://user-images.githubusercontent.com/57330607/179411305-d4add1d9-21c8-4e96-bd1f-8612950b27f2.png)
 ![image](https://user-images.githubusercontent.com/57330607/179411314-d2c23a43-4581-4e3b-a29b-79f42cfe0e1f.png)
