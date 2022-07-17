@@ -15,7 +15,7 @@ from aiogram.types import Message, CallbackQuery
 
 API_TOKEN = '5412361981:AAF7i8e5LIQP0CrF6aYdLCMU6dLN8Sh2paI'
 
-
+Admin = 5246240692
 
 # Initialize bot and dispatcher
 bot = Bot(token=API_TOKEN)
@@ -28,6 +28,7 @@ class DatePick(StatesGroup):
     wait_name = State()
     wait_email = State()
     wait_phone = State()
+    wait_application = State()
 
 
 @dp.message_handler(commands=['start'])    #write 'start' to start bot
@@ -198,10 +199,16 @@ async def Emale(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=DatePick.wait_phone)
 async def Phone(message: types.Message, state: FSMContext):
+    id = message.from_user.id
     RequestDB.UpdatePhoneUser(message.text, message.from_user.id)
-    await state.finish()
+    await DatePick.wait_application.set()
     await bot.send_message(message.from_user.id, "Ожидайте ответа администратора")
-
+    list = RequestDB.SelectUser(id)
+    ServiceData = RequestDB.Application(id)
+    ServiceUser = RequestDB.SelectServiceUser(id)
+    app = "Новая заявка\nИмя:" + list[4] + "\nУслуга:" + ServiceData[1] + "\nДата:" + ServiceUser[3] + "\nТелефон:" + list[1] + "\nПочта:" + list[2]
+    await bot.send_message(Admin, app)
+    state.finish()
 
 
 

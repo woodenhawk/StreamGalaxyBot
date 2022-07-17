@@ -51,3 +51,24 @@ def UpdatePhoneUser(Phone, IdChat):
     con.execute("UPDATE User SET Phone=? Where IdChat =?", (Phone, IdChat))
     con.commit()
     print("Добавил телефон пользователю")
+
+def SelectUser(IdChat):
+    data = con.execute("SELECT * FROM User Where IdChat=?", (IdChat,))
+    list = data.fetchone()
+    return list
+
+def Application(IdChat):
+    data = con.execute("SELECT Id FROM User WHERE IdChat = ?", (IdChat,))
+    IdUser = data.fetchone()[0]
+    data = con.execute("SELECT IdService FROM ServiceUser WHERE IdUser=? order by id desc limit 1", (IdUser,))
+    IdService = data.fetchone()[0]
+    data = con.execute("SELECT * FROM Service Where IdService = ?", (IdService,))
+    list = data.fetchone()
+    return list
+
+def SelectServiceUser(IdChat):
+    data = con.execute("SELECT Id FROM User WHERE IdChat = ?", (IdChat,))
+    IdUser = data.fetchone()[0]
+    data = con.execute("SELECT * FROM ServiceUser WHERE IdUser=? order by id desc limit 1", (IdUser,))
+    ServiceUser = data.fetchone()
+    return ServiceUser
